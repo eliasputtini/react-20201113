@@ -1,0 +1,55 @@
+.container h2 {
+  color: #419fb9;
+  font-size: 32px;
+  line-height: 1em;
+  -webkit-letter-spacing: -0.03em;
+  -moz-letter-spacing: -0.03em;
+  -ms-letter-spacing: -0.03em;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+  margin-top: 36px;
+}
+
+.container h3 {
+  padding: 20px 0;
+  margin-top: 24px;
+  color: #337e93;
+  font-size: 24px;
+  line-height: 1.2;
+  -webkit-letter-spacing: 0.02em;
+  -moz-letter-spacing: 0.02em;
+  -ms-letter-spacing: 0.02em;
+  letter-spacing: 0.02em;
+  font-weight: 700;
+}
+
+.container a {
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #d4649a;
+  color: #d4649a;
+  font-weight: 700;
+}
+
+.container p {
+  color: #414141;
+  font-size: 16px;
+  line-height: 2em;
+  letter-spacing: 0.02em;
+  margin: 16px 0;
+}
+
+.container ul {
+  color: #414141;
+  font-size: 16px;
+  line-height: 2em;
+  letter-spacing: 0.02em;
+  margin: 16px 20px;
+  list-style-type: disc;
+}
+
+.container figcaption {
+  background-color: #f1f2f3;
+  color: #7d8791;
+  padding: 8px;
+}

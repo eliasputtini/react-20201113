@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import styles from "../../styles/article.module.css";
 
 export default function Article() {
   const router = useRouter();
@@ -10,20 +11,28 @@ export default function Article() {
 
   const { articleId } = router.query;
 
+  console.log(
+    `https://api.beta.mejorconsalud.com/wp-json/mc/v2/posts/${articleId}`
+  );
+
   useEffect(() => {
-    fetch(`https://api.beta.mejorconsalud.com/wp-json/mc/v2/posts/${articleId}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setArticle(data);
-        console.log(data);
-        if (data?.status == 404) {
-          setError("Busca não encontrada");
-        }
-      })
-      .catch((error) => {
-        setError(error.message);
-      });
-  }, []);
+    if (articleId != undefined) {
+      fetch(
+        `https://api.beta.mejorconsalud.com/wp-json/mc/v2/posts/${articleId}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          setArticle(data);
+          console.log(data);
+          if (data?.status == 404) {
+            setError("Busca não encontrada");
+          }
+        })
+        .catch((error) => {
+          setError(error.message);
+        });
+    }
+  }, [articleId]);
 
   if (error != "") {
     return <div className="m-6">{error}</div>;
@@ -39,17 +48,24 @@ export default function Article() {
         <link rel="icon" href="/favicon.ico" />
       </Head>{" "}
       {article ? (
-        <div className="w-full rounded overflow-hidden shadow-lg mt-6">
-          <div className="px-6 py-4">
-            <div className="font-bold text-xl mb-2">{article.title}</div>
-            <p className="text-gray-700 text-base">{article.headline}</p>
+        <div className="flex flex-col items-start justify-start mx-2 sm:ml-16 sm:mr-[40%]">
+          <div className="py-6">
+            <div className="font-bold text-4xl text-cyan-600 mb-6">
+              {article.title}
+            </div>
+            <p className="text-gray-700 text-xl border-l-2 border-pink-300 pl-3 pt-1 pb-2">
+              {article.headline}
+            </p>
           </div>
 
           <Image width={800} height={800} src={imageUrl} alt={article.title} />
 
-          <div dangerouslySetInnerHTML={{ __html: article.content }}></div>
+          <div
+            className={styles.container}
+            dangerouslySetInnerHTML={{ __html: article.content }}
+          ></div>
 
-          <div className="px-6 py-4 flex justify-between">
+          <div className="w-[90%] py-4 flex justify-evenly">
             {article.categories.map((category: any) => {
               return (
                 <span
