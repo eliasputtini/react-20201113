@@ -4,8 +4,9 @@ import NewsCard from "../components/NewsCard";
 import { useState, useEffect } from "react";
 
 const NewsList = ({ searchTerm }: any) => {
-  const [debouncedSearchTerm] = useDebounce(searchTerm, 1000);
+  const [debouncedSearchTerm] = useDebounce(searchTerm, 1500);
   const [articles, setArticles] = useState([]);
+  const [resultsNumber, setResultsNumber] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [page, setPage] = useState(0);
@@ -23,6 +24,7 @@ const NewsList = ({ searchTerm }: any) => {
       .then((res) => res.json())
       .then((data) => {
         setArticles(data.data);
+        setResultsNumber(data.size);
         if (data.data.status == 404) {
           setError("Busca não encontrada");
         }
@@ -32,10 +34,10 @@ const NewsList = ({ searchTerm }: any) => {
         setError(error.message);
         setIsLoading(false);
       });
-  }, [debouncedSearchTerm, page]);
+  }, [debouncedSearchTerm, page, relevance]);
 
   if (isLoading) {
-    return <div className="m-6"> Loading...</div>;
+    return <div className="m-6"> Cargando...</div>;
   }
 
   if (error) {
@@ -43,12 +45,28 @@ const NewsList = ({ searchTerm }: any) => {
   }
 
   if (debouncedSearchTerm && articles.length < 1 && !isLoading) {
-    return <div className="m-6">Nenhum resultado encontrado!</div>;
+    return <div className="m-6">No se han encontrado resultados!</div>;
   }
 
   return (
     <>
       <ul className="list-none flex flex-col items-center">
+        <div className="flex flex-row items-center">
+          <button
+            disabled={articles.pages >= page}
+            onClick={() => setRelevance(!relevance)}
+            className={`${
+              relevance
+                ? "transition ease-in-out bg-teal-500 border-2 border-teal-500 "
+                : "transition ease-in-out bg-white border-2 border-teal-500"
+            } mx-4 text-black rounded-3xl p-2 hover:text-blue-300`}
+          >
+            Más vistos
+          </button>{" "}
+          {debouncedSearchTerm && !isLoading && (
+            <p>{resultsNumber} resultados</p>
+          )}
+        </div>
         {articles.length > 1 ? (
           <>
             {articles?.map((article: any) => (
@@ -64,7 +82,7 @@ const NewsList = ({ searchTerm }: any) => {
                     : "text-blue-500 hover:text-blue-800"
                 }  m-6`}
               >
-                Previous
+                Anterior
               </button>
 
               <button
@@ -76,7 +94,7 @@ const NewsList = ({ searchTerm }: any) => {
                     : "text-blue-500 hover:text-blue-800"
                 } m-6`}
               >
-                Next
+                Próxima
               </button>
             </nav>
           </>

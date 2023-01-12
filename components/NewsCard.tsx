@@ -2,7 +2,7 @@ import Router from "next/router";
 import Image from "next/image";
 
 const NewsCard = ({ article }: any) => {
-  const { ["2048x2048"]: imageUrl } = article.featured_media;
+  const { ["2048x2048"]: imageUrl } = article?.featured_media;
 
   return (
     <div
@@ -10,7 +10,7 @@ const NewsCard = ({ article }: any) => {
         const articleId = article.id;
         Router.push("/articles/" + articleId);
       }}
-      className="w-[800px] rounded overflow-hidden shadow-lg mt-6 cursor-pointer"
+      className="max-w-[800px] rounded overflow-hidden shadow-lg mt-6 mx-2 cursor-pointer"
     >
       <Image width={800} height={800} src={imageUrl} alt={article.title} />
       <div className="px-6 py-4">
@@ -35,7 +35,7 @@ const NewsCard = ({ article }: any) => {
           rel="noopener noreferrer"
           className="btn-readmore text-blue-600"
         >
-          Saiba mais
+          Vea mais
         </a>
       </div>
     </div>

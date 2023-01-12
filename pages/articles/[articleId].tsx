@@ -83,12 +83,12 @@ export default function Article() {
               rel="noopener noreferrer"
               className="btn-readmore text-blue-600"
             >
-              Saiba mais
+              Vea mais
             </a>
           </div>
         </div>
       ) : (
-        <div className="m-6">Loading..</div>
+        <div className="m-6">Cargando..</div>
       )}
     </>
   );
