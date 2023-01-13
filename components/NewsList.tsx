@@ -9,7 +9,7 @@ const NewsList = ({ searchTerm }: any) => {
   const [resultsNumber, setResultsNumber] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [relevance, setRelevance] = useState(false);
 
   useEffect(() => {
