@@ -77,7 +77,7 @@ const NewsList = ({ searchTerm }: any) => {
                 disabled={page <= 1}
                 onClick={() => setPage(page - 1)}
                 className={`${
-                  page <= 0
+                  page <= 1
                     ? "text-gray-500"
                     : "text-blue-500 hover:text-blue-800"
                 }  m-6`}
