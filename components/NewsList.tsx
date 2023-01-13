@@ -74,7 +74,7 @@ const NewsList = ({ searchTerm }: any) => {
             ))}
             <nav className="flex justify-between">
               <button
-                disabled={page <= 0}
+                disabled={page <= 1}
                 onClick={() => setPage(page - 1)}
                 className={`${
                   page <= 0
